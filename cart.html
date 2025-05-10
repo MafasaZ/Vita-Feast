@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add to Cart - Vita Feast</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>🛒 Your Current Cart</h2>
+    <div id="cartItems"></div>
+    <button onclick="goToCart()">Go to Checkout</button>
+  </div>
+
+  <script>
+    const cartContainer = document.getElementById("cartItems");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      cart.forEach((item, index) => {
+        const meal = document.createElement("div");
+        meal.innerHTML = `
+          <div class="cart-item">
+            <strong>${item.name}</strong> - $${item.price.toFixed(2)}
+            <button onclick="removeItem(${index})" style="float: right;">❌</button>
+          </div>
+        `;
+        cartContainer.appendChild(meal);
+      });
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    }
+
+    function goToCart() {
+      window.location.href = "cart.html";
+    }
+  </script>
+</body>
+</html>
+

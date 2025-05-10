@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meal Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a href="index.html">⬅ Back</a>
+    <h1>Meal Details</h1>
+  </header>
+
+  <main id="mealDetails"></main>
+
+  <script src="data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const mealId = parseInt(params.get('id'));
+    const meal = meals.find(m => m.id === mealId);
+
+    const details = document.getElementById("mealDetails");
+    if (meal) {
+      details.innerHTML = `
+        <img src="${meal.image}" alt="${meal.name}" class="detail-img"/>
+        <h2>${meal.name}</h2>
+        <p>🍽️ ${meal.category} | ⭐ ${meal.rating}</p>
+        <p>🕒 ${meal.time} mins</p>
+        <p>${meal.description}</p>
+        <button onclick="addToCart(${meal.id})">Add to Cart</button>
+      `;
+    }
+
+    function addToCart(id) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(meals.find(m => m.id === id));
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Meal added to cart!");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VitaFeast - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="VitaFeast – Healthy, delicious meals delivered to your door. Discover clean eating today!" />
+</head>
+<body>
+  <header>
+    <h1>🍽️ VitaFeast</h1>
+    <nav>
+      <a href="signup.html">Sign Up</a>
+      <a href="login.html">Login</a>
+      <a href="cart.html" class="cart-link">🛒 Cart (<span id="cart-count">0</span>)</a>
+    </nav>
+  </header>
+
+
+  <section class="hero">
+    <h2>Healthy meals delivered to your door</h2>
+    <input
+      type="text"
+      id="searchInput"
+      aria-label="Search meals"
+      placeholder="🔍 Find food, e.g., rainbow quinoa bowl, avocado..."
+    />
+  </section>
+
+  <main class="grid-container" id="mealList"></main>
+
+ 
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <noscript>Please enable JavaScript to view meals.</noscript>
+</body>
+</html>
+
+
+
