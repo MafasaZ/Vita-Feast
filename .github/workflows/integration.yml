@@ -1,28 +1,30 @@
 
 
-name: Integration
+name: Node.js CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "master" ]
   pull_request:
-    branches: ["main"]
-
-permissions:
-  contents: read
+    branches: [ "master" ]
 
 jobs:
-  test:
+  build:
+
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup repo
-        uses: actions/checkout@v4
-
-      - name: Setup Deno
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
        
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
-        with:
-          deno-version: v1.x
 
-   
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
